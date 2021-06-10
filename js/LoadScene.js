@@ -11,7 +11,7 @@ export class LoadScene extends Phaser.Scene {
 
         this.load.image('arpao', './images/arpao.png');
 
-        this.load.spritesheet('bolas', './images/bolas.png', { 
+        this.load.spritesheet('bolas', './images/bola.png', { 
         frameWidth: 256,
         frameHeight: 256
         });

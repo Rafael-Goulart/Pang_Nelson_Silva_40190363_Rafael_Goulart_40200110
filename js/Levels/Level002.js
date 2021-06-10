@@ -1,5 +1,5 @@
 import { Player } from "./player.js";
-//import { Bolas } from "./Bolas.js";
+import { Bolas } from "./Bolas.js";
 import { Arpao } from "./Arpao.js";
 
 export class Level002 extends Phaser.Scene {
@@ -52,7 +52,7 @@ export class Level002 extends Phaser.Scene {
         this.prepareHUD();
     }
 
-    onBolas(player, ) {
+    onBolas(player, bolas) {
         player.hit();
         if(!player.isDead()) {
             player.setPosition(

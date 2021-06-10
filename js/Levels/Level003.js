@@ -6,7 +6,7 @@ export class Level003 extends Phaser.Scene {
     constructor() {
         super('Level003');
 
-        this.countHarpon = 0;
+        this.countArpaop = 0;
         this.velocity = 100;
     }
 
@@ -52,7 +52,7 @@ export class Level003 extends Phaser.Scene {
         this.prepareHUD();
     }
 
-    onBolas(player, meteors) {
+    onBolas(player, bolas) {
         player.hit();
         if(!player.isDead()) {
             player.setPosition(

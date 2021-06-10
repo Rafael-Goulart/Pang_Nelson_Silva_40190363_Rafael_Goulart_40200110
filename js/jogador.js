@@ -45,7 +45,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
          if(this.controls.space.isDown) {
             
             this.state = 'Shoot';
-            this.scene.fireHarpon();
+            this.scene.fireArpao();
          }
 
         if(this.state != this.previous_state) {

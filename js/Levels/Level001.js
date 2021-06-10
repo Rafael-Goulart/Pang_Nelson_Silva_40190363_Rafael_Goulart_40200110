@@ -1,6 +1,6 @@
-import { Player } from "./player.js";;
-import { Meteors } from "./meteors.js";
-import { Arpao } from "../Arpao.js";
+import { Player } from "./jogador.js";;
+import { Bolas } from "./Bolas.js";
+import { Arpao } from "./Arpao.js";
 
 export class Level001 extends Phaser.Scene {
     constructor() {
@@ -35,7 +35,7 @@ export class Level001 extends Phaser.Scene {
 
     
 
-        this.Bolas = new Bolas(
+        this.bolas = new Bolas(
             this,
             this.game.config.width * 0.5,
             this.game.config.height * 0.5,
