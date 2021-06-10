@@ -1,5 +1,5 @@
-import MainScene from  './scene.js'
-
+import {LoadScen} from('./LoadScene.js');
+import {Level001} from('./Level001.js');
 
 
 const config={
@@ -7,7 +7,17 @@ const config={
     height: 2048,
     type: Phaser.AUTO,
     parent:'game-canvas',
-    scene:[],
+    scene:[LoadScene, Level001],
+    physics:{
+        default:'arcade',
+        arcade:{
+            gravity:{
+                y:800
+
+            },
+            debug: true,
+        }
+    },
     
     pixelArt:true,
 }
