@@ -1,7 +1,4 @@
-import { Arpao } from "./Arpao.js";
-import { Level001 } from "./Level001.js";
-
-export class Player extends Phaser.Physics.Arcade.Sprite {
+export class jogador extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 
@@ -20,10 +17,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('idle');
 
         this.previous_state = this.state;
-
-        
-            this.lives = 3;
-      
+        this.lives = 3;
     }
 
     update(time) {
@@ -42,11 +36,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.state = "idle";
         }
 
-         if(this.controls.space.isDown) {
-            
-            this.state = 'Shoot';
-            this.scene.fireArpao();
-         }
+        if(this.controls.space.isDown) {
+            this.state = 'scream';
+            this.setVelocityX(0);
+        }
 
         if(this.state != this.previous_state) {
             this.previous_state = this.state;
@@ -59,9 +52,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             {
                 this.anims.play('idle');
             }
-            if(this.state == 'Shoot')
+            if(this.state == 'scream')
             {
-                this.anims.play('Shoot');
+                this.anims.play('scream');
             }
             
             else if (this.state == 'idle') {

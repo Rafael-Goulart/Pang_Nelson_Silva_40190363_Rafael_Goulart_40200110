@@ -5,20 +5,22 @@ export class LoadScene extends Phaser.Scene {
 
     preload() {
         
-        this.load.image('background', './images/Background/nivel_praia_1.png');
-        this.load.image('background2', './images/Background/nivel_pordosol.png');
-        this.load.image('background3', './images/Background/nivel_noite.png');
+        this.load.image('background', './Images/Background/nivel_praia_1.png');
+        this.load.image('background2', './Images/Background/nivel_pordosol.png');
+        this.load.image('background3', './Images/Background/nivel_noite.png');
 
-        this.load.image('arpao', './images/arpao.png');
+    
 
-        this.load.spritesheet('bolas', './images/bola.png', { 
-        frameWidth: 256,
-        frameHeight: 256
-        });
-
-        this.load.spritesheet('player', './images/personagem_costas.png', {
+        this.load.spritesheet('player', './Images/Personagem/personagem_costas.png', {
             frameWidth: 256,
             frameHeight: 288
+        });
+
+        this.load.image('laser', './Images/fio.png');
+
+        this.load.image('bola', './Images/bola.png', { 
+        frameWidth: 256,
+        frameHeight: 256
         });
 
     }
@@ -32,7 +34,7 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'walking',
             frames: this.anims.generateFrameNames('player', {
-                
+                //frame: [9, 10]
                 start: 2,
                 end: 3,
                 first: 2
@@ -45,13 +47,25 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'idle',
             frames: this.anims.generateFrameNames('player', {
-                
+                //frame: [9, 10]
                 start: 0,
                 end: 1,
                 first: 0
             }),
             frameRate: 3,
             yoyo: true,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'scream',
+            frames: this.anims.generateFrameNames('player', {
+                //frame: [9, 10]
+                start: 4,
+                end: 4,
+                first: 4
+            }),
+            frameRate: 1,
             repeat: -1
         });
     }

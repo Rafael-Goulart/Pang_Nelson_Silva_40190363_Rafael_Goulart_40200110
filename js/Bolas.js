@@ -34,8 +34,4 @@ export class Bolas extends Phaser.Physics.Arcade.Sprite{
             )
         );
     }
-
-    update(time) {
-        
-    }
 }
