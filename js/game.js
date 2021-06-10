@@ -1,26 +1,25 @@
-import {LoadScen} from('./LoadScene.js');
-import {Level001} from('./Level001.js');
+import { Level001 } from "./Levels/Level001.js";
+import { Level002 } from "./level002.js";
+import { Level003 } from "./level003.js";
+import { LoadScene } from "./loadscene.js";
 
-
-const config={
-    width: 2048,
-    height: 2048,
+const config = {
+    width: 8700,
+    height: 4900,
     type: Phaser.AUTO,
-    parent:'game-canvas',
-    scene:[LoadScene, Level001],
-    physics:{
-        default:'arcade',
-        arcade:{
-            gravity:{
-                y:800
-
+    parent: 'game-canvas',
+    backgroundColor: '#ffff',
+    scene: [LoadScene, Level001, /*Level002, Level003*/],
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 800
             },
-            debug: true,
+            debug: false
         }
     },
-    
-    pixelArt:true,
+    pixelArt: true
 }
 
-
-new Phaser.Game[config]
+new Phaser.Game(config);
