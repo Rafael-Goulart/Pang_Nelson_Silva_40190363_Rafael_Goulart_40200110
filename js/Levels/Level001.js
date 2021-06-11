@@ -1,4 +1,4 @@
-import { Player } from "./jogador.js";
+/*import { Player } from "./jogador.js";
 import { Meteors } from "./Bolas.js";
 import { Harpon } from "./Arpao.js";
 
@@ -391,4 +391,4 @@ export class Level001 extends Phaser.Scene {
         this.laserGroup.fireLaser(this.player.x, 8000);
         }
     }
-}
+}*/
