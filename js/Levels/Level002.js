@@ -2,7 +2,7 @@ import { Player } from "./jogador.js";
 import { Meteors } from "./Bolas.js";
 import { Harpon } from "./Arpao.js";
 
-export class LaserGroup extends Phaser.Physics.Arcade.Group
+export class Level002 extends Phaser.Physics.Arcade.Group
 {
 	constructor(scene) {
 		super(scene.physics.world, scene);
