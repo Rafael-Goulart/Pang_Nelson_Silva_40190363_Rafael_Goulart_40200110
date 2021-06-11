@@ -1,6 +1,6 @@
 import { Player } from "./player.js";
 import { Ball } from "./ball.js";
-
+import { Weapon } from "./weapon.js";
 export  class nivel1 extends Phaser.Scene {
     constructor() {
         super("nivel1");
