@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.js"></script>
-    <title>Pang</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.1/dist/phaser.js"></script>
+    <title>Pang Game</title>
     <style>
         canvas {
-            width: 100%;
+            width: 80%;
+            display: block;
+            margin: auto;
+            border-radius: 25px;
+            box-shadow:5px 5px 5px #525555;
         }
         body {
-            background-color: #ffff;
+            background-color: #353535;
+            overflow: hidden;
+        }
+        h1{
+            font-size: 20;
+            display: block;
+        color: azure;
+            text-align: center;
+        }
+        .imgcenter{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          
         }
     </style>
 </head>
 <body>
+
+   <img src="img/Logo01.png" height="70" class="imgcenter">
     <div id='game-canvas'></div>
-    
+
     <script type="module" src="js/game.js"></script>
 </body>
 </html>
