@@ -71,7 +71,6 @@ export class Level001 extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'background').setOrigin(0).setScale(5);
 
-        this.add.image(50, 250, 'egg').setOrigin(0).setScale(1).setDepth(2);
 
         this.meteors = this.physics.add.group();
 
@@ -108,25 +107,19 @@ export class Level001 extends Phaser.Scene {
             });
 
         this.physics.add.collider(this.player, this.meteors, this.PlayerHitMeteors, null, this);
-
-        //this.prepareHUD();
     }
 
     PlayerHitMeteors(){
         if(this.lives == 1){
-            console.log("u ded");
+            console.log("já foste");
             this.scene.restart();
         }
 
-        this.sound.play('ouch')
         this.lives--;
         this.laserLimit = 0;
         return;
     }
 
-    /////
-    /////
-    /////
 
     laserHitMeteors(laserGroup, meteors)
     {
