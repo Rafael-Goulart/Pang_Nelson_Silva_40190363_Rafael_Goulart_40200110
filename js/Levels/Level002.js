@@ -2,7 +2,7 @@ import { Player } from "./jogador.js";
 import { Meteors } from "./Bolas.js";
 import { Harpon } from "./Arpao.js";
 
-class LaserGroup extends Phaser.Physics.Arcade.Group
+export class LaserGroup extends Phaser.Physics.Arcade.Group
 {
 	constructor(scene) {
 		super(scene.physics.world, scene);
@@ -20,7 +20,7 @@ class LaserGroup extends Phaser.Physics.Arcade.Group
 		if (laser) {
 			laser.fire(x, y);
             var random = Phaser.Math.Between(0, 1);          
-          
+           
 		}
 	}
 }
@@ -51,9 +51,9 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
 	}
 }
 
-export class Level001 extends Phaser.Scene {
+export class Level002 extends Phaser.Scene {
     constructor() {
-        super('Level001');
+        super('Level002');
         this.laserLimit = 0;
 
         this.laserGroup;
@@ -65,12 +65,13 @@ export class Level001 extends Phaser.Scene {
 
         this.controls = this.input.keyboard.createCursorKeys();
 
-        this.lives = 3;
+        this.lives = 2;
     }
 
     create() {
-        this.add.image(0, 0, 'background').setOrigin(0).setScale(5);
+        this.add.image(0, 0, 'background2').setOrigin(0).setScale(5);
 
+        
 
         this.meteors = this.physics.add.group();
 
@@ -93,7 +94,7 @@ export class Level001 extends Phaser.Scene {
         this.laserGroup = new LaserGroup(this);
         this.physics.add.collider(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
                 
-        this.add.text(100, 100, 'Level 01', {
+        this.add.text(100, 100, 'Level 02', {
             fontFamily: 'Arial',
             color: '#ffff',
             fontSize: 150
@@ -107,6 +108,7 @@ export class Level001 extends Phaser.Scene {
             });
 
         this.physics.add.collider(this.player, this.meteors, this.PlayerHitMeteors, null, this);
+
     }
 
     PlayerHitMeteors(){
@@ -365,6 +367,7 @@ export class Level001 extends Phaser.Scene {
         this.points = this.points + 1;
     }
 
+
     update(time) {
         this.player.update(time);
 
@@ -379,6 +382,7 @@ export class Level001 extends Phaser.Scene {
 
         this.livesText.text = `${this.lives}`;
     }
+
 
     shootLaser() {
         console.log(+ this.laserLimit);

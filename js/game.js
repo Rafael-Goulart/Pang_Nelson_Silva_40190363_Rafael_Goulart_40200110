@@ -1,6 +1,6 @@
-import { Level001 } from ".//Level001.js";
-import { Level002 } from "./Level002.js";
-import { Level003 } from "./Level003.js";
+import { Level001 } from "./Levels/Level001.js";
+import { Level002 } from "./Levels/Level002.js";
+import { Level003 } from "./Levels/Level003.js";
 import { LoadScene } from "./LoadScene.js";
 
 
