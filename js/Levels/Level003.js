@@ -1,401 +1,108 @@
-import { Player } from "./jogador.js";
-import { Meteors } from "./Bolas.js";
-import { Harpon } from "./Arpao.js";
-
-class LaserGroup extends Phaser.Physics.Arcade.Group
-{
-	constructor(scene) {
-		super(scene.physics.world, scene);
-		this.createMultiple({
-			classType: Laser,
-			frameQuantity: 100,
-			active: false,
-			visible: false,
-			key: 'laser'
-		})
-	}
-
-    fireLaser(x, y) {
-		const laser = this.getFirstDead(false);
-		if (laser) {
-			laser.fire(x, y);
-            var random = Phaser.Math.Between(0, 1);          
-           
-        }
-	}
-}
-
- 
-class Laser extends Phaser.Physics.Arcade.Sprite {
-	constructor(scene, x, y) {      
-		super(scene, x, y, 'laser');
-	}
-
-    fire(x, y) {
-		this.body.reset(x, y);
-        this.body.setAllowGravity(false)
-		this.setActive(true);
-		this.setVisible(true);
-
-		this.setVelocityY(-2000);
-        this.setScale(15);      
-    }
-
-    preUpdate(time, delta) {
-		super.preUpdate(time, delta);
- 
-		if (this.y <= 2500) {
-			this.setActive(false);
-			this.setVisible(false);
-            this.scene.laserLimit = 0;
-		}
-	}
-}
-
-export class Level003 extends Phaser.Scene {
+import { Player } from "./player.js";
+import { Ball } from "./ball.js";
+import { Weapon } from "./weapon.js";
+export  class nivel3 extends Phaser.Scene {
     constructor() {
-        super('Level003');
-        this.laserLimit = 0;
+        super("nivel3");
+      
+    } 
 
-        this.laserGroup;
-
-        this.points = 0;        
-    }
-
-    init() {
-
-        this.controls = this.input.keyboard.createCursorKeys();
-
-        this.lives = 1;
-    }
-
+init(){
+       //cria os controlos para as keys
+    this.controls = this.input.keyboard.createCursorKeys();
+ 
+}
     create() {
-        this.add.image(0, 0, 'background3').setOrigin(0).setScale(5);
+       //vidas total por ronda
+        this.maxLife =5;
+  // add background
+        this.add.image(0, 0, 'bg1').setOrigin(0).setScale(0.7);
+       //add texto do nivel
+        this.add.text(50, 50, 'Nivel 03', {
+            color: '#2c3e50',
+            font: "30px Arial"
+            
+        });
+  //add vidas restantes em texto
+     this.lives  = this.add.text(50, 80, 'Vidas Restantes ' + this.maxLife + '.' , {
+            font: "30px Arial",
+            color: '#2c3e50'
 
-        
-
-        this.meteors = this.physics.add.group();
-
+        });
+         //adiciona o jogador a cena
         this.player = new Player(
             this,
             this.game.config.width * 0.5,
-            this.game.config.height,
-            'player', 0
-            ).setDepth(2);
-
-            this.player.setSize(100,175);
-            this.player.body.offset.y = 100;
-
-            this.meteors = new Meteors(
-                this, this.game.config.width * 0.5,
-                this.game.config.height * 0.5,
-                'meteors', 6
-            );
-
-        this.laserGroup = new LaserGroup(this);
-        this.physics.add.collider(this.laserGroup, this.meteors, this.laserHitMeteors, null, this);
-                
-        this.add.text(100, 100, 'Level 03', {
-            fontFamily: 'Arial',
-            color: '#ffff',
-            fontSize: 150
-        });
-
-        this.livesText = this.add.text(350, 325, `${this.lives}`,
-            {
-                fontFamily: 'Arial',
-                color: '#ffff',
-                fontSize: 150
-            });
-
-        this.physics.add.collider(this.player, this.meteors, this.PlayerHitMeteors, null, this);
-        
-        
+            this.game.config.height * 0.5,
+            'player', 1
+           
+        );
+     //grupo de bolas      e add a bola
+        this.groupBall= this.add.group();
+        this.addBall(250,0,5);
+           //colisao entre bola e jogador
+        this.physics.add.collider(this.player,this.groupBall,this.playerLoseLive,null,this);
     }
 
-    PlayerHitMeteors(){
-        if(this.lives == 1){
-            console.log("já foste");
-            this.scene.restart();
-        }
-
-        
-        this.lives--;
-        this.laserLimit = 0;
-        return;
-    }
-
- 
-
-    laserHitMeteors(laserGroup, meteors)
-    {
-        this.laserLimit = 0; 
-        this.meteors1 = new Meteors(
-            this, this.meteors.x,
-            this.meteors.y,
-            'meteors', 6
-        ).setScale(2.5);
-        this.physics.add.collider(this.laserGroup, this.meteors1, this.laserHitMeteors1, null, this);
-        this.physics.add.collider(this.player, this.meteors1, this.PlayerHitMeteors, null, this);
-        this.meteors11 = new Meteors(
-            this, this.meteors.x,
-            this.meteors.y,
-            'meteors', 6
-        ).setScale(2.5);
-        this.physics.add.collider(this.laserGroup, this.meteors11, this.laserHitMeteors11, null, this);
-        this.physics.add.collider(this.player, this.meteors11, this.PlayerHitMeteors, null, this);
-        meteors.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors1(laserGroup, meteors1){
-        this.laserLimit = 0; 
-        this.meteors2 = new Meteors(
-            this, this.meteors1.x,
-            this.meteors1.y,
-            'meteors', 6
-        ).setScale(1.25);
-        this.physics.add.collider(this.laserGroup, this.meteors2, this.laserHitMeteors2, null, this);
-        this.physics.add.collider(this.player, this.meteors2, this.PlayerHitMeteors, null, this);
-        this.meteors222 = new Meteors(
-            this, this.meteors1.x,
-            this.meteors1.y,
-            'meteors', 6
-        ).setScale(1.25);
-        this.physics.add.collider(this.laserGroup, this.meteors222, this.laserHitMeteors222, null, this);
-        this.physics.add.collider(this.player, this.meteors222, this.PlayerHitMeteors, null, this);
-        meteors1.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors222(laserGroup, meteors222){
-        this.laserLimit = 0; 
-        this.meteors13333 = new Meteors(
-            this, this.meteors222.x,
-            this.meteors222.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors13333, this.laserHitMeteors13333, null, this);
-        this.physics.add.collider(this.player, this.meteors13333, this.PlayerHitMeteors, null, this);
-        this.meteors23333 = new Meteors(
-            this, this.meteors222.x,
-            this.meteors222.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors23333, this.laserHitMeteors23333, null, this);
-        this.physics.add.collider(this.player, this.meteors23333, this.PlayerHitMeteors, null, this);
-        meteors222.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
- 
-    laserHitMeteors11(laserGroup, meteors11){
-        this.laserLimit = 0; 
-        this.meteors22 = new Meteors(
-            this, this.meteors11.x,
-            this.meteors11.y,
-            'meteors', 6
-        ).setScale(1.25);
-        this.physics.add.collider(this.laserGroup, this.meteors22, this.laserHitMeteors22, null, this);
-        this.physics.add.collider(this.player, this.meteors22, this.PlayerHitMeteors, null, this);
-        this.meteors122 = new Meteors(
-            this, this.meteors11.x,
-            this.meteors11.y,
-            'meteors', 6
-        ).setScale(1.25);
-        this.physics.add.collider(this.laserGroup, this.meteors122, this.laserHitMeteors122, null, this);
-        this.physics.add.collider(this.player, this.meteors122, this.PlayerHitMeteors, null, this);
-        meteors11.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors122(laserGroup, meteors122){
-        this.laserLimit = 0; 
-        this.meteors4433 = new Meteors(
-            this, this.meteors122.x,
-            this.meteors122.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors4433, this.laserHitMeteors4433, null, this);
-        this.physics.add.collider(this.player, this.meteors4433, this.PlayerHitMeteors, null, this);
-        this.meteors533 = new Meteors(
-            this, this.meteors122.x,
-            this.meteors122.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors533, this.laserHitMeteors533, null, this);
-        this.physics.add.collider(this.player, this.meteors533, this.PlayerHitMeteors, null, this);
-        meteors122.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors22(laserGroup, meteors22){
-        this.laserLimit = 0; 
-        this.meteors33 = new Meteors(
-            this, this.meteors22.x,
-            this.meteors22.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors33, this.laserHitMeteors33, null, this);
-        this.physics.add.collider(this.player, this.meteors33, this.PlayerHitMeteors, null, this);
-        this.meteors3333 = new Meteors(
-            this, this.meteors22.x,
-            this.meteors22.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors3333, this.laserHitMeteors3333, null, this);
-        this.physics.add.collider(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
-        meteors22.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors2(laserGroup, meteors2){
-        this.laserLimit = 0; 
-        this.meteors3 = new Meteors(
-            this, this.meteors2.x,
-            this.meteors2.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors3, this.laserHitMeteors3, null, this);
-        this.physics.add.collider(this.player, this.meteors3, this.PlayerHitMeteors, null, this);
-        this.meteors333 = new Meteors(
-            this, this.meteors2.x,
-            this.meteors2.y,
-            'meteors', 6
-        ).setScale(0.75);
-        this.physics.add.collider(this.laserGroup, this.meteors333, this.laserHitMeteors333, null, this);
-        this.physics.add.collider(this.player, this.meteors333, this.PlayerHitMeteors, null, this);
-        meteors2.destroy();
-        laserGroup.destroy();
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors1333(laserGroup, meteors1333){
-        this.laserLimit = 0; 
-        meteors1333.destroy();
-        laserGroup.destroy();
-        console.log("7");
-        this.physics.add.collider(this.player, this.meteors1333, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors23333(laserGroup, meteors23333){
-        this.laserLimit = 0; 
-        meteors23333.destroy();
-        laserGroup.destroy();
-        console.log("6");
-        this.physics.add.collider(this.player, this.meteors23333, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors333(laserGroup, meteors333){
-        this.laserLimit = 0; 
-        meteors333.destroy();
-        laserGroup.destroy();
-        console.log("5");
-        this.physics.add.collider(this.player, this.meteors333, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors3333(laserGroup, meteors3333){
-        this.laserLimit = 0; 
-        meteors3333.destroy();
-        laserGroup.destroy();
-        console.log("4");
-        this.physics.add.collider(this.player, this.meteors3333, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors3(laserGroup, meteors3){
-        this.laserLimit = 0; 
-        meteors3.destroy();
-        laserGroup.destroy();
-        console.log("3");
-        this.physics.add.collider(this.player, this.meteors3, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors33(laserGroup, meteors33){
-        this.laserLimit = 0; 
-        meteors33.destroy();
-        laserGroup.destroy();
-        this.physics.add.collider(this.player, this.meteors33, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors533(laserGroup, meteors533){
-        this.laserLimit = 0; 
-        meteors533.destroy();
-        laserGroup.destroy();
-        console.log("2");
-        this.physics.add.collider(this.player, this.meteors533 , this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors4433(laserGroup, meteors433){
-        this.laserLimit = 0; 
-        meteors433.destroy();
-        laserGroup.destroy();
-        console.log("1");
-        this.physics.add.collider(this.player, this.meteors4433, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
-
-    laserHitMeteors13333(laserGroup, meteors13333){
-        this.laserLimit = 0;
-        meteors13333.destroy();
-        laserGroup.destroy();
-        console.log("8");
-        this.physics.add.collider(this.player, this.meteors13333, this.PlayerHitMeteors, null, this);
-
-        this.points = this.points + 1;
-    }
 
     update(time) {
-        this.player.update(time);
-
-        if(this.controls.space.isDown) {
-            this.shootLaser();
+         //chama o update do script do player
+       this.player.update(time);
+       //ao clicar no espaço atira o harpoon
+       if(this.controls.space.isDown){
+        this.fireHarpoon();
+       }
         }
 
-        console.log(this.points);
-        if(this.points >= 15){
-            this.scene.start('Level002');
-        }
+                                                                        
+ //> //ADAPTADO DO https://github.com/MacChoi/App/tree/master/Pang 
+     fireHarpoon(){
+      console.log("couting_shoots");
+        var harpoon = this.physics.add.image(this.player.x,this.player.y-1, 'weapon').setOrigin(0).setScale(3);
+      harpoon.scaleY=0;
+      this.physics.add.overlap(harpoon,this.groupBall,this.hitHarpoon,null,this);
+     
 
-        this.livesText.text = `${this.lives}`;
+      this.tweens.add({
+        targets:harpoon,
+        y:100,
+        scaleY:5,
+        duration:125,
+        onComplete:function(tweens,targets){
+            this.countHarpoon--;
+            harpoon.destroy();
+        }.bind(this)
+    })
+   }
+   //metodo do harppon
+hitHarpoon(harpoon,targets){
+    if(targets.scale>1)
+    this.addBall(targets.x,targets.y,targets.scale-=1);
+    harpoon.destroy();
+    targets.destroy();
+       //quando nao tem bolas ativa a cena seguinte
+    if(this.groupBall.children.size==0){
+        console.log("nova cena");
+        this.scene.start("nivel1"); 
     }
-
-
-    shootLaser() {
-        console.log(+ this.laserLimit);
-        if (this.laserLimit >= 1)
-        {
-            return;
-        }
-         else {
-        this.laserLimit++;
-        this.laserGroup.fireLaser(this.player.x, 8000);
-        }
+}
+ //adiciona as bolas a cena
+addBall(x,y,scale){
+    this.groupBall.add(new Ball(this,x,y,'ball',1,scale));
+    this.groupBall.add(new Ball(this,x,y,'ball',-1,scale));
+}
+//<
+//sistema de vida do jogador
+playerLoseLive(){
+        //conta a colisao e remove 1 vida
+    this.maxLife--;
+      //update no texto do hud quando perde vida
+    this.lives.setText('Vidas Restantes ' + this.maxLife);
+    console.log("perdi 1 vida");
+    if(this.maxLife <=0){
+            //quando a vida for zero para dar reset ao nivel 1
+        this.scene.start("nivel3");
     }
+    let lives;
+}
 }
