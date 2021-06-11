@@ -1,7 +1,7 @@
-import { Level001 } from "./Levels/Level001.js";
-import { Level002 } from "./Levels/Level002.js";
-import { Level003 } from "./Levels/Level003.js";
-import { LoadScene } from "./LoadScene.js";
+import { Level001 } from "./js/Levels/Level001.js";
+import { Level002 } from "./js/Levels/Level002.js";
+import { Level003 } from "./js/Levels/Level003.js";
+import { LoadScene } from "./js/LoadScene.js";
 
 
 const config = {
