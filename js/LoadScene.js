@@ -34,7 +34,7 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'walking',
             frames: this.anims.generateFrameNames('player', {
-                //frame: [9, 10]
+                
                 start: 2,
                 end: 3,
                 first: 2
@@ -47,7 +47,7 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'idle',
             frames: this.anims.generateFrameNames('player', {
-                //frame: [9, 10]
+            
                 start: 0,
                 end: 1,
                 first: 0
@@ -57,16 +57,6 @@ export class LoadScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.anims.create({
-            key: 'shoot',
-            frames: this.anims.generateFrameNames('player', {
-                //frame: [9, 10]
-                start: 4,
-                end: 4,
-                first: 4
-            }),
-            frameRate: 1,
-            repeat: -1
-        });
+       
     }
 }
