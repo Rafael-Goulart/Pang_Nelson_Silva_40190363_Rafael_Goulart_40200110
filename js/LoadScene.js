@@ -11,7 +11,7 @@ export class LoadScene extends Phaser.Scene {
 
     
 
-        this.load.spritesheet('player', './Images/Personagem/personagem_costas.png', {
+        this.load.spritesheet('player', './Images/Personagem/Player_Srite_Sheet.png', {
             frameWidth: 256,
             frameHeight: 288
         });
@@ -58,7 +58,7 @@ export class LoadScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'scream',
+            key: 'shoot',
             frames: this.anims.generateFrameNames('player', {
                 //frame: [9, 10]
                 start: 4,

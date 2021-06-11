@@ -28,7 +28,7 @@ export class Arpao extends Phaser.Physics.Arcade.Sprite{
         } else {
         this.countHarpon = this.countHarpon + 1;
         
-        var harpon = this.add.image(this.player.x, 1000, 'harpon').setOrigin(0).setScale(10);
+        var harpon = this.add.image(this.player.x, 1000, 'fio').setOrigin(0).setScale(10);
         harpon.scaleY=0;
         this.physics.add.collider(harpon,this.groupBall,this.hitHarpoon,null,this);
         }

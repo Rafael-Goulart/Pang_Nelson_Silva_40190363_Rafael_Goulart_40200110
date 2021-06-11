@@ -37,7 +37,7 @@ export class jogador extends Phaser.Physics.Arcade.Sprite {
         }
 
         if(this.controls.space.isDown) {
-            this.state = 'scream';
+            this.state = 'shoot';
             this.setVelocityX(0);
         }
 
@@ -52,9 +52,9 @@ export class jogador extends Phaser.Physics.Arcade.Sprite {
             {
                 this.anims.play('idle');
             }
-            if(this.state == 'scream')
+            if(this.state == 'shoot')
             {
-                this.anims.play('scream');
+                this.anims.play('shoot');
             }
             
             else if (this.state == 'idle') {
