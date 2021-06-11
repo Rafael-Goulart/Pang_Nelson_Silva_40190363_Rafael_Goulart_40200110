@@ -9,28 +9,28 @@ export class Arpao extends Phaser.Physics.Arcade.Sprite{
 
         this.controls = scene.input.keyboard.createCursorKeys();
 
-        this.countHarpon = 0;
+        this.countArpao = 0;
     }
 
     update(time){
         if(this.controls.space.isDown){
-            FireHarpon();
+            FireArpao();
         }
         this.setVelocityX(1000);
     }
 
-    fireHarpon(){
-        console.log(+ this.countHarpon);
+    FireArpao(){
+        console.log(+ this.countArpao);
          this.setVelocityX(-this.velocity);
-        if(this.countHarpon >= 2)
+        if(this.countArpao >= 2)
         { 
             return;
         } else {
-        this.countHarpon = this.countHarpon + 1;
+        this.countArpao = this.countArpao + 1;
         
-        var harpon = this.add.image(this.player.x, 1000, 'fio').setOrigin(0).setScale(10);
-        harpon.scaleY=0;
-        this.physics.add.collider(harpon,this.groupBall,this.hitHarpoon,null,this);
+        var arpao = this.add.image(this.player.x, 1000, 'fio').setOrigin(0).setScale(10);
+        arpao.scaleY=0;
+        this.physics.add.collider(arpao,this.groupBall,this.hitArpaoo,null,this);
         }
     }
 }
