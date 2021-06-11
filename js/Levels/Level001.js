@@ -1,4 +1,4 @@
-//import { Player } from "./jogador.js";
+import { Player } from "./jogador.js";
 import { Meteors } from "./Bolas.js";
 import { Harpon } from "./Arpao.js";
 
