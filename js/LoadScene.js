@@ -11,7 +11,7 @@ export class LoadScene extends Phaser.Scene {
 
     
 
-        this.load.spritesheet('player', './Images/Personagem/Player_Srite_Sheet.png', {
+        this.load.spritesheet('player', './Images/Personagem/Player_SriteSheet.png', {
             frameWidth: 256,
             frameHeight: 288
         });
@@ -35,9 +35,9 @@ export class LoadScene extends Phaser.Scene {
             key: 'walking',
             frames: this.anims.generateFrameNames('player', {
                 
-                start: 2,
-                end: 3,
-                first: 2
+                start: 1,
+                end: 2,
+                first: 1
             }),
             frameRate: 5,
             yoyo: true,

@@ -8,29 +8,29 @@ export  class nivel2 extends Phaser.Scene {
     } 
 
 init(){
-     //cria os controlos para as keys
+    
     this.controls = this.input.keyboard.createCursorKeys();
 
 }
     create() {
-          //vidas total por ronda
+        
         this.maxLife =5;
-        // add background
+        
         this.add.image(0, 0, 'bg0').setOrigin(0).setScale(0.7);
       
-     //add texto do nivel
+    
         this.add.text(50, 50, 'Nivel 02', {
             color: '#2c3e50',
             font: "30px Arial"
             
         });
-  //add vidas restantes em texto
+
      this.lives  = this.add.text(50, 80, 'Vidas Restantes ' + this.maxLife + '.' , {
             font: "30px Arial",
             color: '#2c3e50'
 
         });
-          //adiciona o jogador a cena
+         
         this.player = new Player(
             this,
             this.game.config.width * 0.5,
@@ -38,16 +38,16 @@ init(){
             'player', 1
            
         );
-   //grupo de bolas      e add a bola
+   
         this.ballGroup= this.add.group();
         this.addBall(250,0,5);
-         //colisao entre bola e jogador
+         
         this.physics.add.collider(this.player,this.ballGroup,this.playerLoseLive,null,this);
     }
 
 
     update(time) {
-        //chama o update do script do player
+        
        this.player.update(time);
       //ao clicar no espaço atira o harpoon
        if(this.controls.space.isDown){
